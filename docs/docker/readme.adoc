@@ -1,0 +1,43 @@
+
+= docker trojan
+
+[source,shell script]
+----
+# trojan
+
+program_home=/home/program
+
+image=trojangfw/trojan
+name=trojan
+
+work_home=${program_home}/${name}
+
+docker pull $image
+
+docker stop $name
+docker rm $name
+
+docker run -d \
+  \
+  --privileged=true \
+  --restart unless-stopped \
+  --log-opt max-size=10m \
+  --log-opt max-file=3 \
+  \
+  -v /etc/localtime:/etc/localtime \
+  \
+  --network docker-bridge \
+  \
+  -w ${program_home}/${name} \
+  \
+  -v ${work_home}:${work_home} \
+  -v ${program_home}/nginx/cert:${work_home}/cert \
+  \
+  -p 443:443 \
+  \
+  --name $name \
+  \
+  $image \
+  trojan conf/server.json
+
+----

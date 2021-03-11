@@ -1,0 +1,15 @@
+{
+  "run_type": "server",
+  "local_addr": "127.0.0.1",
+  "local_port": 82,
+  "remote_addr": "127.0.0.1",
+  "remote_port": 81,
+  "password": [
+    "123456"
+  ],
+  "ssl": {
+    "cert": "/etc/trojan-go/cert/c332030.com.crt",
+    "key": "/etc/trojan-go/cert/c332030.com.key",
+    "sni": "trojan-go.c332030.com"
+  }
+}

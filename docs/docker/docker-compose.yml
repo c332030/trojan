@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+
+  trojan-go:
+    restart: unless-stopped
+    network_mode: host
+    privileged: true
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    image: p4gefau1t/trojan-go
+    container_name: trojan-go
+    depends_on:
+      - nginx
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./nginx/cert:/etc/trojan-go/cert:ro
+      - ./trojan-go:/etc/trojan-go
+
+#  trojan:
+#    restart: unless-stopped
+#    network_mode: host
+#    privileged: true
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "3"
+#    image: trojangfw/trojan
+#    container_name: trojan
+#    working_dir: /data
+#    command: trojan config.json
+#    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+#      - ./nginx/cert:/data/cert:ro
+#      - ./trojan:/data
